@@ -18,5 +18,6 @@ Next lines have the form:
 Solver comprises of breadth-first-search where it will stop once all the pieces have been fitted and not overlapping.
 Project can be ran as such:
 
-```traceur src/index.js
+```
+traceur src/index.js
 ```
