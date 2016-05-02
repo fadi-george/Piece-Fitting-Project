@@ -3,14 +3,14 @@ export default class PieceBlock {
   constructor(cubePositions, pieceID) {
     this.cubePositions = cubePositions; // -------------- Positions of Each Cube
     this.numCubes = cubePositions.length; // ------- Number of Cubes Composed of
-    this.pieceID = pieceID;
-    this.axesLength = axisLength(cubePositions);
+    this.pieceID = pieceID; // --------------------------------- Label for Piece
+    this.axesLength = axisLength(cubePositions); // Number of Cubes on Each Axis
   }
 
   getUniqueIsometries() {
-    let allIsos = [...Array(24).keys()].map(x => ++x);
+    let allIsos = [...Array(24).keys()].map(x => ++x); // ------ [1,2,3,...,24]
 
-    if (this.numCubes == 1) {
+    if (this.numCubes == 1) { // ----------------------------------- Single Cube
       return [1];
     }
 
@@ -21,7 +21,7 @@ export default class PieceBlock {
           if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
             if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
               // (*,*,*) , (-*,*,*) , (-*,-*,*) , (*,-*,*) , (*,-*,-*) , (*,*,-*) , (-*,*,-*) , (-*,-*,-*)
-              return [1,4,7,10,11,13,16,19];
+              return [1, 4, 7, 10, 11, 13, 16, 19];
 
             } else {
               // Todo
@@ -31,7 +31,7 @@ export default class PieceBlock {
             if (this.axesLength[1] == this.axesLength[2]) { // *x != *y but *y == *z
               // Todo
 
-            } else {  // ----------------------- *x != *y , *x != *z  , *y != *z
+            } else { // ----------------------- *x != *y , *x != *z  , *y != *z
               return allIsos;
             }
           }
@@ -39,7 +39,7 @@ export default class PieceBlock {
         } else { // ---------------------------------------------- [ * , * , 0 ]
           if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
             // (*,*,0) , (0,*,*) , (-*,0,*) , (-*,-*,0) , (0,-*,*) , (*,-*,0) , (*,0,*) , (*,0,-*) , (0,*,-*) , (-*,*,0) , (-*,0,-*) , (0,-*,-*)
-            return [1,3,6,7,9,10,12,13,15,17,18,20];
+            return [1, 3, 6, 7, 9, 10, 12, 13, 15, 17, 18, 20];
 
           } else { // *x != *y
             return allIsos;
@@ -48,7 +48,8 @@ export default class PieceBlock {
       } else {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , 0 , * ]
           if (this.axesLength[0] == this.axesLength[2]) { // *x == *z
-            // Todo
+            // (*,0,*) , (0,*,*) , (*,*,0) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (-*,0,-*) , (0,-*,-*)
+            return [1, 2, 3, 5, 6, 8, 9, 12, 14, 15, 17, 21];
 
           } else { // *x != *z
             return allIsos;
@@ -56,14 +57,19 @@ export default class PieceBlock {
 
         } else { // ---------------------------------------------- [ * , 0 , 0 ]
           // (*,0,0) , (0,*,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          return [1,2,5,6,8,9,15];
+          if (this.axesLength[0] & 1) { // ----------------- Odd Number of Cubes
+            return [1, 2, 5];
+          } else {
+            return [1, 2, 5, 6, 8, 9, 15];
+          }
         }
       }
     } else {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ 0 , * , * ]
           if (this.axesLength[1] == this.axesLength[2]) { // *x == *z
-            // Todo
+            // (0,*,*) , (*,0,*) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (-*,0,-*) , (0,-*,-*)
+            return [1, 2, 4, 5, 7, 8, 11, 13, 14, 16, 19];
 
           } else { // *x != *z
             return allIsos;
@@ -71,13 +77,21 @@ export default class PieceBlock {
 
         } else { // ---------------------------------------------- [ 0 , * , 0 ]
           // (0,*,0) , (*,0,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          return [1,2,3,4,7,13];
+          if (this.axesLength[1] & 1) { // ----------------- Odd Number of Cubes
+            return [1, 2 , 3];
+          } else {
+            return [1, 2, 3, 4, 7, 13];
+          }
         }
 
       } else {
         if (this.axesLength[2] > 1) { // ------------------------- [ 0 , 0 , * ]
           // (0,0,*) , (*,0,0) , (-*,0,0) , (0,*,0) , (0,-*,0) , (0,0,-*)
-          return [1,3,5,6,8,14];
+          if (this.axesLength[2] & 1) { // ----------------- Odd Number of Cubes
+            return [1, 3, 6];
+          } else {
+            return [1, 3, 5, 6, 8, 14];
+          }
         }
       }
     }
