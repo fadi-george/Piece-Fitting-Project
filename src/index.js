@@ -14,5 +14,6 @@ for (let i = 0; i < loadedPieces[1]; i++) {
   Pieces.push(new PieceBlock(loadedPieces[i + 2], pieceNames[i]));
 }
 
-// State Queue - Depth First Search
+// State Queue - Breadth First Search
 // -----------------------------------------------------------------------------
+console.log(Pieces);
