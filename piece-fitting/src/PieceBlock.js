@@ -6,6 +6,7 @@ export default class PieceBlock {
     this.pieceID = pieceID;
     this.axesLength = Array(3).fill(0); // --------- How many cubes per axis (x , y , z)
 
+    // Index 0 ~ X , Index 1 ~ Y , Index 2 ~ Z
     for (let i = 0; i < cubePositions.length; i++) {
       if (cubePositions[i][0]) {
         this.axesLength[0]++;
@@ -56,44 +57,151 @@ export default class PieceBlock {
 
   }
 
-  isoMeteryCases(isoCase) {
+  getIsometry(isoCase) {
 
     let newPos = deepCopy(this.cubePositions);
 
-    for (let i = 0; i < isoCases.length; i++) {
 
-      if (isoCases[i] == 1) { // --------------------------------- [ x , y , z ]
-        return newPos;
+    if (isoCase == 1) { // --------------------------------------- [ x , y , z ]
+      return newPos;
 
-      } else if (isoCases[i] == 2) { // -------------------------- [ y , x , z ]
-        for (let i in newPos) {
-          [newPos[i][0], newPos[i][1]] = [newPos[i][1], newPos[i][0]];
-        }
-
-      } else if (isoCases[i] == 3) { // -------------------------- [ z , x , y ]
-        for (let i in newPos) {
-          [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], newPos[i][0], newPos[i][1]];
-        }
-
-      } else if (isoCases[i] == 4) { // ------------------------- [ -y , x , z ]
-        for (let i in newPos) {
-          [newPos[i][0], newPos[i][1]] = [-newPos[i][1], newPos[i][0]];
-        }
-
-      } else if (isoCases[i] == 5) { // ------------------------- [ -z , y , x ]
-        for (let i in newPos) {
-          [newPos[i][0], newPos[i][2]] = [-newPos[i][2], newPos[i][0]];
-        }
+    } else if (isoCase == 2) { // -------------------------------- [ y , x , z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1]] = [newPos[i][1], newPos[i][0]];
       }
+
+    } else if (isoCase == 3) { // -------------------------------- [ z , x , y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], newPos[i][0], newPos[i][1]];
+      }
+
+    } else if (isoCase == 4) { // ------------------------------- [ -y , x , z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1]] = [-newPos[i][1], newPos[i][0]];
+      }
+
+
+
+
+    } else if (isoCase == 5) { // ------------------------------- [ -z , y , x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][2]] = [-newPos[i][2], newPos[i][0]];
+      }
+
+    } else if (isoCase == 6) { // ------------------------------- [ -x , z , y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][0], newPos[i][2], newPos[i][1]];
+      }
+
+    } else if (isoCase == 7) { // ------------------------------ [ -x , -y , z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1]] = [-newPos[i][0], -newPos[i][1]];
+      }
+
+    } else if (isoCase == 8) { // ------------------------------ [ -y , -z , x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][2], newPos[i][0]];
+      }
+
+
+
+
+    } else if (isoCase == 9) { // ------------------------------ [ -z , -x , y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], -newPos[i][0], newPos[i][1]];
+      }
+
+    } else if (isoCase == 10) { // ------------------------------ [ y , -x , z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1]] = [newPos[i][1], -newPos[i][0]];
+      }
+
+    } else if (isoCase == 11) { // ------------------------------ [ z , -y , x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1], newPos[i][0]];
+      }
+
+    } else if (isoCase == 12) { // ----------------------------- [ x , -z , y ]
+      for (let i in newPos) {
+        [newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][1]];
+      }
+
+
+
+
+    } else if (isoCase == 13) { // ------------------------------ [ x , z , -y ]
+      for (let i in newPos) {
+        [newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1]];
+      }
+
+    } else if (isoCase == 14) { // ------------------------------ [ y , x , -z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], newPos[i][0], -newPos[i][2]];
+      }
+
+    } else if (isoCase == 15) { // ------------------------------ [ z , y , -x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1], -newPos[i][0]];
+      }
+
+    } else if (isoCase == 16) { // ----------------------------- [ -z , x , -y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][0], -newPos[i][1]];
+      }
+
+
+
+
+    } else if (isoCase == 17) { // ----------------------------- [ -x , y , -z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][2]] = [-newPos[i][0], -newPos[i][2]];
+      }
+
+    } else if (isoCase == 18) { // ----------------------------- [ -y , z , -x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], newPos[i][2], -newPos[i][0]];
+      }
+
+    } else if (isoCase == 19) { // ---------------------------- [ -x , -z , -y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][0], -newPos[i][2], -newPos[i][1]];
+      }
+
+    } else if (isoCase == 20) { // --------------------------- [ -z , -x , -y  ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], -newPos[i][0], -newPos[i][1]];
+      }
+
+
+
+
+    } else if (isoCase == 21) { // ---------------------------- [ -y , -x , -z ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][0], -newPos[i][2]];
+      }
+
+    } else if (isoCase == 22) { // ----------------------------- [ z , -x , -y ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][0], -newPos[i][1]];
+      }
+
+    } else if (isoCase == 23) { // ----------------------------- [ y , -z , -x ]
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], -newPos[i][2], -newPos[i][0]];
+      }
+
+    } else if (isoCase == 24) { // ----------------------------- [ x , -y , -z ]
+      for (let i in newPos) {
+        [newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][2]];
+      }
+
+    } else {
+      throw new Error('Not a valid Isometry choice value.');
     }
+    return newPos; // add isonumber if needed
   }
 }
 
 let deepCopy = function(arr) {
   return JSON.parse(JSON.stringify(arr));
-};
-
-let swapTwoElements = function(value, index, array1) {
-  console.log(array1);
-  //[arr[j], arr[i]] = [arr[i], arr[j]];
 };
