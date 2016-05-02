@@ -18,6 +18,24 @@ export default class PieceBlock {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
 
+          if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
+            if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
+              // (*,*,*) , (-*,*,*) , (-*,-*,*) , (*,-*,*) , (*,-*,-*) , (*,*,-*) , (-*,*,-*) , (-*,-*,-*)
+              return [1,4,7,10,11,13,16];
+
+            } else {
+
+            }
+
+          } else { // *x != *y
+            if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
+              // (*,*,*) , (-*,*,*)
+              return [1,];
+            } else {
+
+            }
+          }
+
         } else { // ---------------------------------------------- [ * , * , 0 ]
           if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
             // (*,*,0) , (0,*,*) , (-*,0,*) , (-*,-*,0) , (0,-*,*) , (*,-*,0) , (*,0,*) , (*,0,-*) , (0,*,-*) , (-*,*,0) , (-*,0,-*) , (0,-*,-*)
@@ -44,6 +62,12 @@ export default class PieceBlock {
     } else {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ 0 , * , * ]
+          if (this.axesLength[1] == this.axesLength[2]) { // *x == *z
+            // Todo
+
+          } else { // *x != *z
+            return allIsos;
+          }
 
         } else { // ---------------------------------------------- [ 0 , * , 0 ]
           // (0,*,0) , (*,0,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
