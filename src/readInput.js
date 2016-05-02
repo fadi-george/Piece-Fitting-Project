@@ -1,4 +1,4 @@
-export function readInput(path) {
+export default function readInput(path) {
 
   const nl = require('os').EOL;           // adjust for new line
   let objOut = [];

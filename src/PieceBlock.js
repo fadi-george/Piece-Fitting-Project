@@ -4,20 +4,7 @@ export default class PieceBlock {
     this.cubePositions = cubePositions; // -------------- Positions of Each Cube
     this.numCubes = cubePositions.length; // ------- Number of Cubes Composed of
     this.pieceID = pieceID;
-    this.axesLength = Array(3).fill(0); // --------- How many cubes per axis (x , y , z)
-
-    // Index 0 ~ X , Index 1 ~ Y , Index 2 ~ Z
-    for (let i = 0; i < cubePositions.length; i++) {
-      if (cubePositions[i][0]) {
-        this.axesLength[0]++;
-      }
-      if (cubePositions[i][1]) {
-        this.axesLength[1]++;
-      }
-      if (cubePositions[i][2]) {
-        this.axesLength[2]++;
-      }
-    }
+    this.axesLength = axisLength(cubePositions);
   }
 
   getUniqueIsometries() {
@@ -205,3 +192,19 @@ export default class PieceBlock {
 let deepCopy = function(arr) {
   return JSON.parse(JSON.stringify(arr));
 };
+
+let axisLength = function(arr) {
+  let uniqueX = [];
+  let uniqueY = [];
+  let uniqueZ = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    uniqueX.push(arr[i][0]);
+    uniqueY.push(arr[i][1]);
+    uniqueZ.push(arr[i][2]);
+  }
+  uniqueX = [...new Set(uniqueX)];
+  uniqueY = [...new Set(uniqueY)];
+  uniqueZ = [...new Set(uniqueZ)];
+  return [uniqueX.length, uniqueY.length, uniqueZ.length];
+}

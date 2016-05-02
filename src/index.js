@@ -1,4 +1,4 @@
-import {readInput} from './readInput.js';
+import readInput from './readInput.js';
 import PieceBlock from './PieceBlock.js';
 
 // Read Inputs (Synchronous Read)
