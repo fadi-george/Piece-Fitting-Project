@@ -8,7 +8,7 @@ export default class PieceBlock {
   }
 
   getUniqueIsometries() {
-    let possibleIsos = [];
+    let allIsos = [...Array(24).keys()].map(x => ++x);
 
     if (this.numCubes == 1) {
       return [1];
@@ -19,10 +19,22 @@ export default class PieceBlock {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
 
         } else { // ---------------------------------------------- [ * , * , 0 ]
+          if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
+            // (*,*,0) , (0,*,*) , (-*,0,*) , (-*,-*,0) , (0,-*,*) , (*,-*,0) , (*,0,*) , (*,0,-*) , (0,*,-*) , (-*,*,0) , (-*,0,-*) , (0,-*,-*)
+            return [1,3,6,7,9,10,12,13,15,17,18,20];
 
+          } else { // *x != *y
+            return allIsos;
+          }
         }
       } else {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , 0 , * ]
+          if (this.axesLength[0] == this.axesLength[2]) { // *x == *z
+            // Todo
+
+          } else { // *x != *z
+            return allIsos;
+          }
 
         } else { // ---------------------------------------------- [ * , 0 , 0 ]
           // (*,0,0) , (0,*,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
