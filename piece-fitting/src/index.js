@@ -6,9 +6,15 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
-import Greeting from './Greeting.js';
 import {readInput} from './readInput.js';
+import PieceBlock from './PieceBlock.js';
 
+// Read Inputs (Synchronous Read)
 let loadedPieces = readInput('./src/fileInput.txt');
-console.log(loadedPieces);
+let pieceNames = [];
+
+// Generate Names
+for (let i = 0; i < loadedPieces[1]; i++) {
+  pieceNames.push('piece' + String.fromCharCode(65 + i));
+}
+console.log(pieceNames);

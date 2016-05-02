@@ -10,12 +10,12 @@ export function readInput(path) {
   let fs = require('fs');
   let lines = fs.readFileSync(path, 'utf8').split(nl);
 
-  objOut.push(lines[0]);                     // Dimension of Cube
-  objOut.push(lines[1]);                     // Number of Pieces to Fit
+  objOut.push(parseInt(lines[0]));                     // Dimension of Cube
+  objOut.push(parseInt(lines[1]));                     // Number of Pieces to Fit
 
   for (let i = 3; i < lines.length; i++) {
     if (tempCubeCount > 0) {
-      tempCubeMats.push(lines[i].split(' '));
+      tempCubeMats.push(lines[i].split(' ').map(Number));
       tempCubeCount--;
 
     }else if (tempCubeCount == 0) {          // Skip piece number
