@@ -21,18 +21,18 @@ export default class PieceBlock {
           if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
             if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
               // (*,*,*) , (-*,*,*) , (-*,-*,*) , (*,-*,*) , (*,-*,-*) , (*,*,-*) , (-*,*,-*) , (-*,-*,-*)
-              return [1,4,7,10,11,13,16];
+              return [1,4,7,10,11,13,16,19];
 
             } else {
-
+              // Todo
             }
 
           } else { // *x != *y
-            if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
-              // (*,*,*) , (-*,*,*)
-              return [1,];
-            } else {
+            if (this.axesLength[1] == this.axesLength[2]) { // *x != *y but *y == *z
+              // Todo
 
+            } else {  // ----------------------- *x != *y , *x != *z  , *y != *z
+              return allIsos;
             }
           }
 
