@@ -3,7 +3,7 @@ import PieceBlock from './PieceBlock.js';
 
 // Read Inputs (Synchronous Read)
 // -----------------------------------------------------------------------------
-let loadedPieces = readInput('./src/fileInput.txt');
+let loadedPieces = readInput('./src/Input.txt');
 let pieceNames = [];
 let Pieces = [];
 
@@ -17,3 +17,11 @@ for (let i = 0; i < loadedPieces[1]; i++) {
 // State Queue - Breadth First Search
 // -----------------------------------------------------------------------------
 console.log(Pieces);
+let idx = 0;
+
+//while (stateQueue.length) {
+posIsos = Piece[idx].getUniqueIsometries();
+console.log(posIsos);
+
+
+//}
