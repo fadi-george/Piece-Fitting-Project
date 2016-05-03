@@ -1,4 +1,4 @@
-export default class PieceBlock {
+export class PieceBlock {
 
   constructor(cubePositions, pieceID) {
     this.cubePositions = cubePositions; // -------------- Positions of Each Cube
@@ -14,6 +14,9 @@ export default class PieceBlock {
       return [1];
     }
 
+    // Todo Check for Jacks shape
+
+
     if (this.axesLength[0] > 1) {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
@@ -25,11 +28,14 @@ export default class PieceBlock {
 
             } else {
               // Todo
+              return allIsos;
+
             }
 
           } else { // *x != *y
             if (this.axesLength[1] == this.axesLength[2]) { // *x != *y but *y == *z
               // Todo
+              return allIsos;
 
             } else { // ----------------------- *x != *y , *x != *z  , *y != *z
               return allIsos;
@@ -57,19 +63,15 @@ export default class PieceBlock {
 
         } else { // ---------------------------------------------- [ * , 0 , 0 ]
           // (*,0,0) , (0,*,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          if (this.axesLength[0] & 1) { // ----------------- Odd Number of Cubes
-            return [1, 2, 5];
-          } else {
-            return [1, 2, 5, 6, 8, 9, 15];
-          }
+          return [1, 2, 5];
         }
       }
     } else {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ 0 , * , * ]
           if (this.axesLength[1] == this.axesLength[2]) { // *x == *z
-            // (0,*,*) , (*,0,*) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (-*,0,-*) , (0,-*,-*)
-            return [1, 2, 4, 5, 7, 8, 11, 13, 14, 16, 19];
+            // (0,*,*) , (*,0,*) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (*,*,0) (-*,0,-*) , (0,-*,-*)
+            return [1, 2, 4, 5, 7, 8, 11, 13, 14, 15, 16, 19];
 
           } else { // *x != *z
             return allIsos;
@@ -77,21 +79,13 @@ export default class PieceBlock {
 
         } else { // ---------------------------------------------- [ 0 , * , 0 ]
           // (0,*,0) , (*,0,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          if (this.axesLength[1] & 1) { // ----------------- Odd Number of Cubes
-            return [1, 2 , 3];
-          } else {
-            return [1, 2, 3, 4, 7, 13];
-          }
+          return [1, 2, 3];
         }
 
       } else {
         if (this.axesLength[2] > 1) { // ------------------------- [ 0 , 0 , * ]
           // (0,0,*) , (*,0,0) , (-*,0,0) , (0,*,0) , (0,-*,0) , (0,0,-*)
-          if (this.axesLength[2] & 1) { // ----------------- Odd Number of Cubes
-            return [1, 3, 6];
-          } else {
-            return [1, 3, 5, 6, 8, 14];
-          }
+          return [1, 3, 6];
         }
       }
     }
@@ -247,7 +241,7 @@ let deepCopy = function(arr) {
   return JSON.parse(JSON.stringify(arr));
 };
 
-let axisLength = function(arr) {
+export function axisLength(arr) {
   let uniqueX = [];
   let uniqueY = [];
   let uniqueZ = [];
@@ -261,4 +255,12 @@ let axisLength = function(arr) {
   uniqueY = [...new Set(uniqueY)];
   uniqueZ = [...new Set(uniqueZ)];
   return [uniqueX.length, uniqueY.length, uniqueZ.length];
+}
+
+export function axisMinMax(arr) {
+  let x = arr.map(e => e[0]);
+  let y = arr.map(e => e[1]);
+  let z = arr.map(e => e[2]);
+
+  return [[Math.min(...x),Math.max(...x)],[Math.min(...y),Math.max(...y)],[Math.min(...z),Math.max(...z)]];
 }
