@@ -237,7 +237,7 @@ export class PieceBlock {
   }
 }
 
-let deepCopy = function(arr) {
+export function deepCopy(arr) {
   return JSON.parse(JSON.stringify(arr));
 };
 

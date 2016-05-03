@@ -3,7 +3,8 @@ import readInput from './readInput.js';
 import {
   PieceBlock,
   axisLength,
-  axisMinMax
+  axisMinMax,
+  deepCopy
 } from './PieceBlock.js';
 
 import {
@@ -35,6 +36,9 @@ let stateQueueIdx = 0;
 //while (stateQueue.length) {
 let posIsos = Pieces[idx].getUniqueIsometries();
 let currentMat;
+let currentPieces;
+let pieceIsometeries;
+let pieceShifts;
 
 for (let i of posIsos) {
 
@@ -54,24 +58,46 @@ for (let i of posIsos) {
 
   if (idx) {
     currentMat = stateQueue[stateQueueIdx].cubeMat;
+    currentPieces = stateQueue[stateQueueIdx].currentPieces;
+    pieceIsometeries = stateQueue[stateQueueIdx].pieceIsometeries;
+    pieceShifts = stateQueue[stateQueueIdx].pieceShifts;
+
+    currentPieces.push(idx + 1);
+    pieceIsometeries.push(i);
+
   } else {
     currentMat = newCubeMat(3);
+    currentPieces = idx + 1;
+    pieceIsometeries = i;
+    console.log(currentMat);
   }
+  console.log(cubePos);
 
   // Determine How Much Shape can be shifted
   for (let x = 0; x < xFree; x++) {
     for (let y = 0; y < yFree; y++) {
       for (let z = 0; z < zFree; z++) {
 
-        //cubePosShift.push([x,y,z]);
+        let isValidShift = true;
+        let posMap = cubePos.map(e => [(3 * (e[2] + zDis)) + e[0] + xDis, e[1] + yDis]); // ------------- (x,y,z) mapping to 2d matrix
+        let cubeMatValues = posMap.map(e => currentMat[e[0]][e[1]]); // --------------------------------- grab values from the cube matrix
+
+        if (cubeMatValues.indexOf(1) < 0) { // ---------------------------------------------------------- Cube can fit piece
+          cubePosShift.push([x, y, z]);
+        }
       }
     }
   }
   console.log(cubePosShift);
+
+  for (let shift in cubePosShift) {
+    //stateQueue.push( new CubeState(cubeMat, currentPieces, pieceIsometeries, pieceShifts) );
+  }
   break;
 
 }
 stateQueueIdx++;
+
 
 //}
 //pieceShifts
