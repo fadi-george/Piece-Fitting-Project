@@ -14,9 +14,12 @@ export class StateQueue {
     this.isDoneSearching = false;
   }
 
-  stateDepthFirstSearch(stateQueueElement) {}
   // State Queue - Depth First Search
   // [ Current Cube 3D Matrix ] , [ Current Pieces ] , [ Piece Isometries ] , [ Piece Shifts ]
+  stateDepthFirstSearch(stateQueueElement) {
+
+  }
+
 }
 
 // -----------------------------------------------------------------------------
