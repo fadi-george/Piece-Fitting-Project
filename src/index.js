@@ -18,10 +18,10 @@ for (let i = 0; i < piecesData[1]; i++) {
 
 // Create State Depth First Searcher Object
 // -----------------------------------------------------------------------------
+console.time('solver');
 let cubeDim = piecesData[0];
 let totalPieces = piecesData[1];
 let states = new StateQueue(cubeDim, totalPieces, Pieces);
-console.time('solver');
 let solvedState = states.stateDepthFirstSearch(null);
 console.log(solvedState.cubeMat);
 console.timeEnd('solver');
