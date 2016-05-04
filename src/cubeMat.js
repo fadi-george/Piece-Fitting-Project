@@ -32,9 +32,6 @@ export class StateQueue {
     if (stateQueueElement) { // ------------------- If state element is not null
       pieceIdx = stateQueueElement.currentPieces;
       // console.log(stateQueueElement.cubeMat);
-      // console.log(stateQueueElement.currentPieces);
-      // console.log(stateQueueElement.pieceIsometeries);
-      // console.log(stateQueueElement.pieceShifts);
     } else {
       pieceIdx = 0;
     }
@@ -49,9 +46,6 @@ export class StateQueue {
     for (let i of posIsos) {
 
       let cubePos = this.Pieces[pieceIdx].getIsometry(i);
-      // console.log(i);
-      // console.log(cubePos);
-      // console.log(' ');
 
       let newRange = axisLength(cubePos);
 
@@ -91,7 +85,7 @@ export class StateQueue {
             ]); // ------------------------------------------------------------------------------------------ (x,y,z) mapping to 2d matrix
             let cubeMatValues = posMap.map(e => currentMat[e[0]][e[1]]); // --------------------------------- Grab values from the cube matrix
 
-            if (cubeMatValues.indexOf(1) < 0) { // ---------------------------------------------------------- Cube can fit piece
+            if (cubeMatValues.every(e => e == 0)) { // ------------------------------------------------------ Cube can fit piece
 
               let updatedMat = deepCopy(currentMat);
 
@@ -99,13 +93,9 @@ export class StateQueue {
               if (pieceIdx) {
                 pieceShifts = [...stateQueueElement.pieceShifts];
               }
-              pieceShifts.push([
-                x + xDis,
-                y + yDis,
-                z + zDis
-              ]);
+              pieceShifts.push([x + xDis, y + yDis, z + zDis]);
 
-              posMap.map(e => updatedMat[e[0]][e[1]] = 1); // ----------------------------------------------- Place 1s into cube matrix to indicate filled spot
+              posMap.map(e => (updatedMat[e[0]][e[1]] = this.Pieces[pieceIdx].pieceID)); // ----------------------------------------------- Place 1s into cube matrix to indicate filled spot
 
               let temp = this.stateDepthFirstSearch(new CubeState(updatedMat, currentPieces, pieceIsometeries, pieceShifts));
               if (temp != null) {

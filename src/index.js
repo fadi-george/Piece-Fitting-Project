@@ -12,7 +12,7 @@ let Pieces = [];
 // Generate Names
 // -----------------------------------------------------------------------------
 for (let i = 0; i < piecesData[1]; i++) {
-  pieceNames.push('piece' + String.fromCharCode(65 + i));
+  pieceNames.push(String.fromCharCode(65 + i));
   Pieces.push(new PieceBlock(piecesData[i + 2], pieceNames[i]));
 }
 
@@ -23,5 +23,5 @@ let totalPieces = piecesData[1];
 let states = new StateQueue(cubeDim, totalPieces, Pieces);
 console.time('solver');
 let solvedState = states.stateDepthFirstSearch(null);
-console.timeEnd('solver');
 console.log(solvedState);
+console.timeEnd('solver');
