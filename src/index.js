@@ -23,5 +23,5 @@ let totalPieces = piecesData[1];
 let states = new StateQueue(cubeDim, totalPieces, Pieces);
 console.time('solver');
 let solvedState = states.stateDepthFirstSearch(null);
-console.log(solvedState);
+console.log(solvedState.cubeMat);
 console.timeEnd('solver');
