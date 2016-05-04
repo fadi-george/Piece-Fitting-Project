@@ -4,8 +4,6 @@ Given some empty cube, determine best possible arrangement of pieces so they can
 Project was created using Babeljs and Node. Project files utilize ES6 features.
 Can be transpiled Google's transpiler traceur.
 
-# (NOT FINISHED YET)
-
 ### Input Format
 First line of input file should be the dimension of the empty cube.
 Second line should be the number of pieces to fit into the cube.
@@ -19,5 +17,7 @@ Solver comprises of breadth-first-search where it will stop once all the pieces 
 Project can be ran as such:
 
 ```
-traceur src/index.js
+traceur ./src/index.js
+or
+babel-node ./src/index.js
 ```
