@@ -1,5 +1,5 @@
 import readInput from './readInput.js';
-import {PieceBlock, axisLength, axisMinMax, deepCopy} from './PieceBlock.js';
+import {PieceBlock, deepCopy} from './PieceBlock.js';
 import {CubeState, newCubeMat} from './cubeMat.js';
 
 // Read Inputs (Synchronous Read)
