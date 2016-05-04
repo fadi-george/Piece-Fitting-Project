@@ -16,7 +16,6 @@ export class PieceBlock {
 
     // Todo Check for Jacks shape
 
-
     if (this.axesLength[0] > 1) {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
