@@ -14,8 +14,6 @@ export class PieceBlock {
       return [1];
     }
 
-    // Todo Check for Jacks shape
-
     if (this.axesLength[0] > 1) {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
@@ -102,7 +100,10 @@ export class PieceBlock {
       return newPos.map(e => [e[1],e[0],e[2]]);
 
     } else if (isoCase == 3) { // -------------------------------- [ z , x , y ]
-      return newPos.map(e => [e[2],e[0],e[1]]);
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], newPos[i][0], newPos[i][1]];
+      }
+      return newPos;
 
     } else if (isoCase == 4) { // ------------------------------- [ -y , x , z ]
       return newPos.map(e => [-e[1],e[0],e[2]]);
@@ -120,98 +121,93 @@ export class PieceBlock {
       return newPos.map(e => [-e[1],-e[2],e[0]]);
 
     } else if (isoCase == 9) { // ------------------------------ [ -z , -x , y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], -newPos[i][0], newPos[i][1]];
-      }
+      return newPos.map(e => [-e[2],-e[0],e[1]]);
 
     } else if (isoCase == 10) { // ------------------------------ [ y , -x , z ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1]] = [newPos[i][1], -newPos[i][0]];
       }
+      return newPos;
 
     } else if (isoCase == 11) { // ------------------------------ [ z , -y , x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1], newPos[i][0]];
-      }
+      return newPos.map(e => [e[2],-e[1],e[0]]);
 
     } else if (isoCase == 12) { // ----------------------------- [ x , -z , y ]
       for (let i in newPos) {
         [newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][1]];
       }
-
-
-
+      return newPos;
 
     } else if (isoCase == 13) { // ------------------------------ [ x , z , -y ]
       for (let i in newPos) {
         [newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1]];
       }
+      return newPos;
 
     } else if (isoCase == 14) { // ------------------------------ [ y , x , -z ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], newPos[i][0], -newPos[i][2]];
       }
+      return newPos;
 
     } else if (isoCase == 15) { // ------------------------------ [ z , y , -x ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1], -newPos[i][0]];
       }
+      return newPos;
 
     } else if (isoCase == 16) { // ----------------------------- [ -z , x , -y ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][0], -newPos[i][1]];
       }
-
-
-
+      return newPos;
 
     } else if (isoCase == 17) { // ----------------------------- [ -x , y , -z ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][2]] = [-newPos[i][0], -newPos[i][2]];
       }
+      return newPos;
 
     } else if (isoCase == 18) { // ----------------------------- [ -y , z , -x ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], newPos[i][2], -newPos[i][0]];
       }
+      return newPos;
 
     } else if (isoCase == 19) { // ---------------------------- [ -x , -z , -y ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][0], -newPos[i][2], -newPos[i][1]];
       }
+      return newPos;
 
     } else if (isoCase == 20) { // --------------------------- [ -z , -x , -y  ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], -newPos[i][0], -newPos[i][1]];
       }
-
-
+      return newPos;
 
 
     } else if (isoCase == 21) { // ---------------------------- [ -y , -x , -z ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][0], -newPos[i][2]];
       }
+      return newPos;
 
     } else if (isoCase == 22) { // ----------------------------- [ z , -x , -y ]
       for (let i in newPos) {
         [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][0], -newPos[i][1]];
       }
+      return newPos;
 
     } else if (isoCase == 23) { // ----------------------------- [ y , -z , -x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], -newPos[i][2], -newPos[i][0]];
-      }
+      return newPos.map(e => [e[1],-e[2],-e[0]]);
 
     } else if (isoCase == 24) { // ----------------------------- [ x , -y , -z ]
-      for (let i in newPos) {
-        [newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][2]];
-      }
+      return newPos.map(e => [e[0],-e[1],-e[2]]);
 
     } else {
       throw new Error('Not a valid Isometry choice value.');
     }
-    return newPos; // add isonumber if needed
   }
 }
 

@@ -26,8 +26,19 @@ export class StateQueue {
   stateDepthFirstSearch(stateQueueElement) {
 
     let pieceIdx;
-    let currentMat;
-    //debugger;
+    let cubePos; let cubePosShift;
+    let newRange;
+    let bounds;
+    let pieceShifts;
+
+    let posMap;
+    let cubeMatValues;
+
+    let i;
+    let x;     let y;     let z;
+    let xDis;  let yDis;  let zDis;
+    let xFree; let yFree; let zFree;
+    let temp;
 
     // Check previous configuration
     if (stateQueueElement) { // ------------------- If state element is not null
@@ -36,69 +47,59 @@ export class StateQueue {
       pieceIdx = 0;
     }
 
+    let currentPieces = pieceIdx + 1;
+    let pieceIsometeries;
+
     // All pieces were placed, return configuration
     if (pieceIdx == this.totalPieces) {
       return stateQueueElement;
     }
-
     let posIsos = this.Pieces[pieceIdx].getUniqueIsometries();
 
-    for (let i of posIsos) {
+    for (i of posIsos) {
 
-      let cubePos = this.Pieces[pieceIdx].getIsometry(i);
+      cubePos = this.Pieces[pieceIdx].getIsometry(i);
+      newRange = axisLength(cubePos);
+      bounds = axisMinMax(cubePos);
 
-      let newRange = axisLength(cubePos);
+      xDis = 0 - bounds[0][0]; // ---------------- How Far Piece's x-axis boundary is from origin
+      yDis = 0 - bounds[1][0]; // ---------------- How Far Piece's y-axis boundary is from origin
+      zDis = 0 - bounds[2][0]; // ---------------- How Far Piece's z-axis boundary is from origin
 
-      let bounds = axisMinMax(cubePos);
-      let xDis = 0 - bounds[0][0]; // ---------------- How Far Piece's x-axis boundary is from origin
-      let yDis = 0 - bounds[1][0]; // ---------------- How Far Piece's y-axis boundary is from origin
-      let zDis = 0 - bounds[2][0]; // ---------------- How Far Piece's z-axis boundary is from origin
+      xFree = this.cubeDim - newRange[0] + 1; // ------ How Much Free Space in X-axis
+      yFree = this.cubeDim - newRange[1] + 1; // ------ How Much Free Space in Y-axis
+      zFree = this.cubeDim - newRange[2] + 1; // ------ How Much Free Space in Z-axis
 
-      let xFree = this.cubeDim - newRange[0] + 1; // ------ How Much Free Space in X-axis
-      let yFree = this.cubeDim - newRange[1] + 1; // ------ How Much Free Space in Y-axis
-      let zFree = this.cubeDim - newRange[2] + 1; // ------ How Much Free Space in Z-axis
-
-      let cubePosShift = [];
-      let currentPieces = pieceIdx + 1;
-      let pieceIsometeries = [];
-      let pieceShifts = [];
-
+      pieceIsometeries = [];
+      pieceShifts = [];
       if (pieceIdx) {
         pieceIsometeries = [...stateQueueElement.pieceIsometeries];
       }
       pieceIsometeries.push(i);
 
       // Determine How Much Shape can be shifted
-      for (let x = 0; x < xFree; x++) {
-        for (let y = 0; y < yFree; y++) {
-          for (let z = 0; z < zFree; z++) {
+      for (x = 0; x < xFree; x++) {
+        for (y = 0; y < yFree; y++) {
+          for (z = 0; z < zFree; z++) {
 
-            let posMap = cubePos.map(e => [
-              (3 * (e[2] + zDis + z)) + e[0] + xDis + x,
-              e[1] + yDis + y
-            ]); // ------------------------------------------------------------------------------------------ (x,y,z) mapping to 2d matrix
-            let cubeMatValues = posMap.map(e => this.cubeMat[e[0]][e[1]]); // --------------------------------- Grab values from the cube matrix
+            // -------------------------------------------------------------------------------------------- (x,y,z) mapping to 2d matrix
+            posMap = cubePos.map(e => [(3 * (e[2] + zDis + z)) + e[0] + xDis + x, e[1] + yDis + y]);
+            cubeMatValues = posMap.map(e => this.cubeMat[e[0]][e[1]]); // --------------------------------- Grab values from the cube matrix
 
             if (cubeMatValues.every(e => e == 0)) { // ------------------------------------------------------ Cube can fit piece
 
-              let updatedMat = this.cubeMat;
-
-              let pieceShifts = [];
+              pieceShifts = [];
               if (pieceIdx) {
                 pieceShifts = [...stateQueueElement.pieceShifts];
               }
-              pieceShifts.push([
-                x + xDis,
-                y + yDis,
-                z + zDis
-              ]);
+              pieceShifts.push([x + xDis, y + yDis, z + zDis]);
 
-              posMap.map(e => (updatedMat[e[0]][e[1]] = this.Pieces[pieceIdx].pieceID)); // ----------------------------------------------- Place 1s into cube matrix to indicate filled spot
-              let temp = this.stateDepthFirstSearch(new CubeState(updatedMat, currentPieces, pieceIsometeries, pieceShifts));
+              posMap.map(e => (this.cubeMat[e[0]][e[1]] = this.Pieces[pieceIdx].pieceID)); // ----------------------------------------------- Place 1s into cube matrix to indicate filled spot
+              temp = this.stateDepthFirstSearch(new CubeState(this.cubeMat, currentPieces, pieceIsometeries, pieceShifts));
               if (temp != null) {
                 return temp;
               }
-              posMap.map(e => (updatedMat[e[0]][e[1]] = 0));
+              posMap.map(e => (this.cubeMat[e[0]][e[1]] = 0));
 
             }
 
