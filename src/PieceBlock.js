@@ -97,7 +97,10 @@ export class PieceBlock {
       return newPos;
 
     } else if (isoCase == 2) { // -------------------------------- [ y , x , z ]
-      return newPos.map(e => [e[1],e[0],e[2]]);
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], newPos[i][0], newPos[i][2]];
+      }
+      return newPos;
 
     } else if (isoCase == 3) { // -------------------------------- [ z , x , y ]
       for (let i in newPos) {
@@ -200,7 +203,10 @@ export class PieceBlock {
       return newPos;
 
     } else if (isoCase == 23) { // ----------------------------- [ y , -z , -x ]
-      return newPos.map(e => [e[1],-e[2],-e[0]]);
+      for (let i in newPos) {
+        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], -newPos[i][2], -newPos[i][0]];
+      }
+      return newPos;
 
     } else if (isoCase == 24) { // ----------------------------- [ x , -y , -z ]
       return newPos.map(e => [e[0],-e[1],-e[2]]);
