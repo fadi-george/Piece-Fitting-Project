@@ -93,52 +93,31 @@ export class PieceBlock {
 
   getIsometry(isoCase) {
 
-    let newPos = deepCopy(this.cubePositions);
-
+    let newPos = this.cubePositions;
 
     if (isoCase == 1) { // --------------------------------------- [ x , y , z ]
       return newPos;
 
     } else if (isoCase == 2) { // -------------------------------- [ y , x , z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1]] = [newPos[i][1], newPos[i][0]];
-      }
+      return newPos.map(e => [e[1],e[0],e[2]]);
 
     } else if (isoCase == 3) { // -------------------------------- [ z , x , y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], newPos[i][0], newPos[i][1]];
-      }
+      return newPos.map(e => [e[2],e[0],e[1]]);
 
     } else if (isoCase == 4) { // ------------------------------- [ -y , x , z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1]] = [-newPos[i][1], newPos[i][0]];
-      }
-
-
-
+      return newPos.map(e => [-e[1],e[0],e[2]]);
 
     } else if (isoCase == 5) { // ------------------------------- [ -z , y , x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][2]] = [-newPos[i][2], newPos[i][0]];
-      }
+      return newPos.map(e => [-e[2],e[1],e[0]]);
 
     } else if (isoCase == 6) { // ------------------------------- [ -x , z , y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][0], newPos[i][2], newPos[i][1]];
-      }
+      return newPos.map(e => [-e[0],e[2],e[1]]);
 
     } else if (isoCase == 7) { // ------------------------------ [ -x , -y , z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1]] = [-newPos[i][0], -newPos[i][1]];
-      }
+      return newPos.map(e => [-e[0],-e[1],e[2]]);
 
     } else if (isoCase == 8) { // ------------------------------ [ -y , -z , x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][2], newPos[i][0]];
-      }
-
-
-
+      return newPos.map(e => [-e[1],-e[2],e[0]]);
 
     } else if (isoCase == 9) { // ------------------------------ [ -z , -x , y ]
       for (let i in newPos) {
