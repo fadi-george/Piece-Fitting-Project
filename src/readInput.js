@@ -1,6 +1,5 @@
 export default function readInput(path) {
 
-  const nl = require('os').EOL; //-------------------------- Adjust for new line
   let objOut = [];
   let idx = 0;
   let tempCubeCount = -1;
@@ -8,11 +7,10 @@ export default function readInput(path) {
 
   //  Read Input File
   let fs = require('fs');
-  let lines = fs.readFileSync(path, 'utf8').split(nl);
+  let lines = fs.readFileSync(path).toString().split('\n');
 
   objOut.push(parseInt(lines[0])); // ------------------------ Dimension of Cube
   objOut.push(parseInt(lines[1])); // ------------------ Number of Pieces to Fit
-
   for (let i = 3; i < lines.length; i++) {
     if (tempCubeCount > 0) {
       tempCubeMats.push(lines[i].split(' ').map(Number));
@@ -24,7 +22,7 @@ export default function readInput(path) {
       tempCubeMats = [];
 
     } else {
-      tempCubeCount = parseInt(lines[i]); 
+      tempCubeCount = parseInt(lines[i]);
     }
   }
 
