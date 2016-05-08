@@ -1,4 +1,4 @@
-import {axisLength, axisMinMax, deepCopy} from './PieceBlock.js';
+import {axisLength, axisMinMax} from './PieceBlock.js';
 
 export function newCubeMat(cubeDim) {
   return Array(...Array(cubeDim * cubeDim)).map(() => Array(cubeDim).fill(0));
@@ -56,7 +56,7 @@ export class StateQueue {
 
     for (let i of posIsos) {
 
-      cubePos = this.Pieces[pieceIdx].getIsometry(i);
+      cubePos = this.Pieces[pieceIdx].performIsometry(i);
       newRange = axisLength(cubePos);
       bounds = axisMinMax(cubePos);
 
