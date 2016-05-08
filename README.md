@@ -18,6 +18,8 @@ Project can be ran as such:
 
 ```
 traceur ./src/index.js
+```
 or
+```
 babel-node ./src/index.js
 ```

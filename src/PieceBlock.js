@@ -10,10 +10,12 @@ export class PieceBlock {
   getUniqueIsometries() {
     let allIsos = [...Array(24).keys()].map(x => ++x); // ------ [1,2,3,...,24]
 
-    if (this.numCubes == 1) { // ----------------------------------- Single Cube
+    // Single Cube
+    if (this.numCubes == 1) {
       return [1];
     }
 
+    // How far cubes extend along each axis
     if (this.axesLength[0] > 1) {
       if (this.axesLength[1] > 1) {
         if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
@@ -197,5 +199,5 @@ export function axisMinMax(arr) { // [ [x,y,z] , [x,y,z] , ... ]
   let z = arr.map(e => e[2]); // grab each z-coordinate inside the array
 
   // boundaries for each coordinate (bounding box)
-  return [[Math.min(...x),Math.max(...x)],[Math.min(...y),Math.max(...y)],[Math.min(...z),Math.max(...z)]];
+  return [Math.min(...x), Math.max(...x), Math.min(...y), Math.max(...y), Math.min(...z), Math.max(...z)];
 }

@@ -23,5 +23,4 @@ let totalPieces = piecesData[1];
 let states = new StateQueue(cubeDim, totalPieces, Pieces);
 let solvedState = states.stateDepthFirstSearch(null);
 console.log(solvedState.cubeMat);
-console.log(solvedState.pieceIsometeries);
 console.timeEnd('solver');

@@ -3,7 +3,6 @@
   "name": "piece-fitting",
   "version": "0.0.1",
   "description": "Fit Pieces Into Empty Cube",
-  "repository": "fsgdez/Piece_Fitting_Project",
   "license": "MIT",
   "keywords": [],
   "main": "index.js",
@@ -22,7 +21,8 @@
     "extends": "airbnb/base"
   },
   "dependencies": {
-    "babel-runtime": "^6.6.1"
+    "babel-runtime": "^6.6.1",
+    "traceur": "0.0.108"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -56,8 +56,6 @@
     "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "node tools/build",
-    "prepublish": "npm run build",
-    "publish:docs": "easystatic deploy docs --repo kriasoft/babel-starter-kit",
-    "start": "easystatic start docs"
+    "start": "traceur ./src/index.js"
   }
 }
