@@ -55,11 +55,15 @@ export class StateQueue {
     let posIsos = this.Pieces[pieceIdx].getUniqueIsometries();
 
     for (let i of posIsos) {
-
+      // console.log('Pos',this.Pieces[pieceIdx].cubePositions);
       cubePos = this.Pieces[pieceIdx].performIsometry(i);
+      // this.Pieces[pieceIdx].cubePositions = cubePos;
+
       newRange = axisLength(cubePos);
       bounds = axisMinMax(cubePos);
-
+      // console.log('oldPos',cubePos);
+      // console.log('checkPos',this.Pieces[pieceIdx].cubePositions);
+      // debugger;
       xDis = 0 - bounds[0][0]; // ---------------- How Far Piece's x-axis boundary is from origin
       yDis = 0 - bounds[1][0]; // ---------------- How Far Piece's y-axis boundary is from origin
       zDis = 0 - bounds[2][0]; // ---------------- How Far Piece's z-axis boundary is from origin

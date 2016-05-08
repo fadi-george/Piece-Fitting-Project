@@ -96,7 +96,7 @@ export class PieceBlock {
     let newPos = this.cubePositions;
 
     if (isoCase == 1) { // --------------------------------------- [ x , y , z ]
-      return newPos;
+      return newPos.map(([x, y, z]) => [x, y, z]);
 
     } else if (isoCase == 2) { // -------------------------------- [ y , z , x ]
       return newPos.map(([x, y, z]) => [y, z, x]); // switch order for array elements
@@ -123,86 +123,46 @@ export class PieceBlock {
       return newPos.map(([x, y, z]) => [-z, -x, y]);
 
     } else if (isoCase == 10) { // ------------------------------ [ y , -x , z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], -newPos[i][0] , newPos[i][2]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [y, -x, z]);
 
     } else if (isoCase == 11) { // ------------------------------ [ z , -y , x ]
-      return newPos.map(e => [e[2],-e[1],e[0]]);
+      return newPos.map(([x, y, z]) => [z, -y, x]);
 
     } else if (isoCase == 12) { // ----------------------------- [ x , -z , y ]
-      for (let i in newPos) {
-        [newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [x, -z, y]);
 
     } else if (isoCase == 13) { // ------------------------------ [ x , z , -y ]
-      for (let i in newPos) {
-        [newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [x, z, -y]);
 
     } else if (isoCase == 14) { // ------------------------------ [ y , x , -z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][1], newPos[i][0], -newPos[i][2]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [y, x, -z]);
 
     } else if (isoCase == 15) { // ------------------------------ [ z , y , -x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][1], -newPos[i][0]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [z, y, -x]);
 
     } else if (isoCase == 16) { // ----------------------------- [ -z , x , -y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], newPos[i][0], -newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [-z, x, -y]);
 
     } else if (isoCase == 17) { // ----------------------------- [ -x , y , -z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][2]] = [-newPos[i][0], -newPos[i][2]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [-x, y, -z]);
 
     } else if (isoCase == 18) { // ----------------------------- [ -y , z , -x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], newPos[i][2], -newPos[i][0]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [-y, z, -x]);
 
     } else if (isoCase == 19) { // ---------------------------- [ -x , -z , -y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][0], -newPos[i][2], -newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [-x, -z, -y]);
 
     } else if (isoCase == 20) { // --------------------------- [ -z , -x , -y  ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][2], -newPos[i][0], -newPos[i][1]];
-      }
-      return newPos;
-
+      return newPos.map(([x, y, z]) => [-x, -z, -y]);
 
     } else if (isoCase == 21) { // ---------------------------- [ -y , -x , -z ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [-newPos[i][1], -newPos[i][0], -newPos[i][2]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [-y, -x, -z]);
 
     } else if (isoCase == 22) { // ----------------------------- [ z , -x , -y ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][0], -newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [z, -x, -y]);
 
     } else if (isoCase == 23) { // ----------------------------- [ y , -z , -x ]
-      for (let i in newPos) {
-        [newPos[i][0], newPos[i][1], newPos[i][2]] = [newPos[i][2], -newPos[i][0], -newPos[i][1]];
-      }
-      return newPos;
+      return newPos.map(([x, y, z]) => [y, -z, -x]);
 
     } else if (isoCase == 24) { // ----------------------------- [ x , -y , -z ]
       return newPos.map(([x, y, z]) => [x, -y, -z]);
