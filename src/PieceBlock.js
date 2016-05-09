@@ -10,7 +10,6 @@ export class PieceBlock {
   }
 
   getUniqueIsometries() {
-
     let uniqueIsos = [];
     let uniqArrStr;
     let isoStr;
@@ -28,8 +27,8 @@ export class PieceBlock {
       isoConfig.sort();
 
       for (let arr of uniquePositions) { // keep track of unique configurations
-        uniqArrStr = JSON.stringify(arr);
-        isoStr = JSON.stringify(isoConfig);
+        uniqArrStr = arr.toString();
+        isoStr = isoConfig.toString();
 
         if( isoStr == uniqArrStr ){ // if isometries results in a previously seen configuration, dont update the list
           uniqueConfig = false;
@@ -68,7 +67,7 @@ export class PieceBlock {
       return newPos.map(([x, y, z]) => [-x, z, y]);
 
     } else if (isoCase == 7) { // ------------------------------ [ -x , -y , z ]
-      return newPos.map(([x, y, z]) => [-x, z, y]);
+      return newPos.map(([x, y, z]) => [-x, -y, z]);
 
     } else if (isoCase == 8) { // ------------------------------ [ -y , -z , x ]
       return newPos.map(([x, y, z]) => [-y, -z, x]);
@@ -106,8 +105,8 @@ export class PieceBlock {
     } else if (isoCase == 19) { // ---------------------------- [ -x , -z , -y ]
       return newPos.map(([x, y, z]) => [-x, -z, -y]);
 
-    } else if (isoCase == 20) { // --------------------------- [ -z , -x , -y  ]
-      return newPos.map(([x, y, z]) => [-x, -z, -y]);
+    } else if (isoCase == 20) { // --------------------------- [ -z , -y , -x  ]
+      return newPos.map(([x, y, z]) => [-z, -y, -x]);
 
     } else if (isoCase == 21) { // ---------------------------- [ -y , -x , -z ]
       return newPos.map(([x, y, z]) => [-y, -x, -z]);
