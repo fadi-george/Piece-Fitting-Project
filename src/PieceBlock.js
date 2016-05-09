@@ -5,92 +5,44 @@ export class PieceBlock {
     this.numCubes = cubePositions.length; // ------- Number of Cubes Composed of
     this.pieceID = pieceID; // --------------------------------- Label for Piece
     this.axesLength = axisLength(cubePositions); // Number of Cubes on Each Axis
+    this.uniqueIsoCases = [];
+    this.uniqueIsos = this.getUniqueIsometries();
   }
 
   getUniqueIsometries() {
-    let allIsos = [...Array(24).keys()].map(x => ++x); // ------ [1,2,3,...,24]
 
-    // Single Cube
-    if (this.numCubes == 1) {
-      return [1];
-    }
+    let uniqueIsos = [];
+    let uniqArrStr;
+    let isoStr;
+    let uniqueConfig;
+    let uniquePositions = [];
+    let isoConfig;
+    let lims;
 
-    // How far cubes extend along each axis
-    if (this.axesLength[0] > 1) {
-      if (this.axesLength[1] > 1) {
-        if (this.axesLength[2] > 1) { // ------------------------- [ * , * , * ]
+    for (let i = 1; i <= 24; i++) { // ---------- Check if other isometries gives different configurations from the rest
 
-          if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
-            if (this.axesLength[1] == this.axesLength[2]) { // *y == *z
-              // (*,*,*) , (-*,*,*) , (-*,-*,*) , (*,-*,*) , (*,-*,-*) , (*,*,-*) , (-*,*,-*) , (-*,-*,-*)
-              if (this.axesLength[0] & 1) {
+      uniqueConfig = true;
+      isoConfig = this.performIsometry(i); // ---- Check Each Isometries
+      lims = axisMinMax(isoConfig); // ----------- Get Boundaries
+      isoConfig = isoConfig.map( e => [e[0]-lims[0],e[1]-lims[2] ,e[2]-lims[4]] ); // ---- shift by most negative values in each axis
+      isoConfig.sort();
 
-              }
-              return [1, 4, 7, 10, 11, 13, 16, 19];
+      for (let arr of uniquePositions) { // keep track of unique configurations
+        uniqArrStr = JSON.stringify(arr);
+        isoStr = JSON.stringify(isoConfig);
 
-            } else {
-              return [1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
-
-            }
-
-          } else { // *x != *y
-            if (this.axesLength[1] == this.axesLength[2]) { // *x != *y but *y == *z
-              // Todo
-              return allIsos;
-
-            } else { // ----------------------- *x != *y , *x != *z  , *y != *z
-              return allIsos;
-            }
-          }
-
-        } else { // ---------------------------------------------- [ * , * , 0 ]
-          if (this.axesLength[0] == this.axesLength[1]) { // *x == *y
-            // (*,*,0) , (0,*,*) , (-*,0,*) , (-*,-*,0) , (0,-*,*) , (*,-*,0) , (*,0,*) , (*,0,-*) , (0,*,-*) , (-*,*,0) , (-*,0,-*) , (0,-*,-*)
-            return [1, 3, 6, 7, 9, 10, 12, 13, 15, 17, 18, 20];
-
-          } else { // *x != *y
-            return allIsos;
-          }
-        }
-      } else {
-        if (this.axesLength[2] > 1) { // ------------------------- [ * , 0 , * ]
-          if (this.axesLength[0] == this.axesLength[2]) { // *x == *z
-            // (*,0,*) , (0,*,*) , (*,*,0) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (-*,0,-*) , (0,-*,-*)
-            return [1, 2, 3, 5, 6, 8, 9, 12, 14, 15, 17, 21];
-
-          } else { // *x != *z
-            return [1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,24];
-          }
-
-        } else { // ---------------------------------------------- [ * , 0 , 0 ]
-          // (*,0,0) , (0,*,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          return [1, 2, 5];
+        if( isoStr == uniqArrStr ){ // if isometries results in a previously seen configuration, dont update the list
+          uniqueConfig = false;
         }
       }
-    } else {
-      if (this.axesLength[1] > 1) {
-        if (this.axesLength[2] > 1) { // ------------------------- [ 0 , * , * ]
-          if (this.axesLength[1] == this.axesLength[2]) { // *x == *z
-            // (0,*,*) , (*,0,*) , (-*,0,*) , (-*,*,0) , (0,-*,*) , (-*,-*,0) , (*,-*,0) , (0,*,-*) , (*,0,-*) , (*,*,0) (-*,0,-*) , (0,-*,-*)
-            return [1, 2, 4, 5, 7, 8, 11, 13, 14, 15, 16, 19];
 
-          } else { // *x != *z
-            return allIsos;
-          }
-
-        } else { // ---------------------------------------------- [ 0 , * , 0 ]
-          // (0,*,0) , (*,0,0) , (0,0,*) , (-*,0,0) , (0,-*,0) , (0,0,-*)
-          return [1, 2, 3];
-        }
-
-      } else {
-        if (this.axesLength[2] > 1) { // ------------------------- [ 0 , 0 , * ]
-          // (0,0,*) , (*,0,0) , (-*,0,0) , (0,*,0) , (0,-*,0) , (0,0,-*)
-          return [1, 3, 6];
-        }
+      if( uniqueConfig ){
+        uniqueIsos.push(i);
+        uniquePositions.push(isoConfig);
       }
     }
-
+    this.uniqueIsoCases = uniqueIsos;
+    return uniquePositions;
   }
 
   performIsometry(isoCase) {

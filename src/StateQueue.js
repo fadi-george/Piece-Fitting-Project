@@ -61,18 +61,14 @@ export class StateQueue {
     let xDis;  let yDis;  let zDis;
     let xFree; let yFree; let zFree;
 
-    let posIsos = this.Pieces[pieceIdx].getUniqueIsometries();
+    let posIsos = this.Pieces[pieceIdx].uniqueIsos; // unique positions for all isometries
+    let isoCases = this.Pieces[pieceIdx].uniqueIsoCases; // isometries represented as cases
 
-    for (let i of posIsos) {
+    for (let i in posIsos) {
 
-      cubePos = this.Pieces[pieceIdx].performIsometry(i);
-      // console.time('axisL');
+      cubePos = posIsos[i];
       newRange = axisLength(cubePos);
-      // console.timeEnd('axisL');
-      // console.time('axisMin');
       bounds = axisMinMax(cubePos);
-      // console.timeEnd('axisMin');
-      // return;
 
       xDis = 0 - bounds[0]; // ---------------- How Far Piece's x-axis boundary is from origin
       yDis = 0 - bounds[2]; // ---------------- How Far Piece's y-axis boundary is from origin
@@ -87,7 +83,7 @@ export class StateQueue {
       if (pieceIdx) {
         pieceIsometeries = [...stateQueueElement.pieceIsometeries];
       }
-      pieceIsometeries.push(i);
+      pieceIsometeries.push(isoCases[i]); // push order of valid isometries
 
       // Determine How Much Shape can be shifted
       for (x = 0; x < xFree; x++) {
