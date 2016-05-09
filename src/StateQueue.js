@@ -58,7 +58,6 @@ export class StateQueue {
     let cubeMatValues;
 
     let x;     let y;     let z;
-    let xDis;  let yDis;  let zDis;
     let xFree; let yFree; let zFree;
 
     let posIsos = this.Pieces[pieceIdx].uniqueIsos; // unique positions for all isometries
@@ -69,10 +68,6 @@ export class StateQueue {
       cubePos = posIsos[i];
       newRange = axisLength(cubePos);
       bounds = axisMinMax(cubePos);
-
-      xDis = 0 - bounds[0]; // ---------------- How Far Piece's x-axis boundary is from origin
-      yDis = 0 - bounds[2]; // ---------------- How Far Piece's y-axis boundary is from origin
-      zDis = 0 - bounds[4]; // ---------------- How Far Piece's z-axis boundary is from origin
 
       xFree = this.cubeDim - newRange[0] + 1; // ------ How Much Free Space in X-axis
       yFree = this.cubeDim - newRange[1] + 1; // ------ How Much Free Space in Y-axis
@@ -92,8 +87,8 @@ export class StateQueue {
 
             // -------------------------------------------------------------------------------------------- (x,y,z) mapping to 2d matrix
             posMap = cubePos.map(e => [
-              (this.cubeDim * (e[2] + zDis + z)) + e[0] + xDis + x,
-              e[1] + yDis + y
+              (this.cubeDim * (e[2] + z)) + e[0] + x,
+              e[1] + y
             ]);
             cubeMatValues = posMap.map(e => this.cubeMat[e[0]][e[1]]); // --------------------------------- Grab values from the cube matrix
 
@@ -103,7 +98,7 @@ export class StateQueue {
               if (pieceIdx) {
                 pieceShifts = [...stateQueueElement.pieceShifts];
               }
-              pieceShifts.push([x + xDis, y + yDis, z + zDis]);
+              pieceShifts.push([x, y, z]);
 
               // place piece and update the matrix
               posMap.map(e => (this.cubeMat[e[0]][e[1]] = this.Pieces[pieceIdx].pieceID));
