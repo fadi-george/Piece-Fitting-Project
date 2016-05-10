@@ -15,6 +15,9 @@ for (let i = 0; i < piecesData[1]; i++) {
   Pieces.push(new PieceBlock(piecesData[i + 2], String.fromCharCode(65 + i)));
 }
 
+// Sort by number of unique isometries
+Pieces.sort((a,b) => (b.uniqueIsos.length - a.uniqueIsos.length));
+
 // Create State Depth First Searcher Object
 // -----------------------------------------------------------------------------
 console.time('solver');
