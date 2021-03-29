@@ -1,7 +1,7 @@
 # Piece Fitting Project (Babel and Node)
 Given some empty cube, determine best possible arrangement of pieces so they can fit into the cube.
 
-Project was created using Babeljs and Node. Project files utilize ES6 features.
+Small project I made for school. Project files utilize ES6 features.
 Can be transpiled Google's transpiler traceur.
 
 ### Input Format
